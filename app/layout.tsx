@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   title: "Nilsu Mat",
   description:
     "Ortaokul, LGS, TYT ve AYT seviyelerinde birebir özel matematik dersleri. Nilsu Uğurlu ile güvenilir, planlı ve öğrencinin seviyesine uygun matematik eğitimi.",
-  metadataBase: new URL("https://tegemenozyurek.github.io"),
+  metadataBase: new URL("https://tegemenozyurek.github.io/nilsumat"),
   alternates: {
     canonical: "/",
   },

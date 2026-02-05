@@ -1,2 +1,2 @@
-// GitHub Pages için basePath ayarı (root domain için boş)
-export const basePath = "";
+// GitHub Pages için basePath ayarı
+export const basePath = "/nilsumat";

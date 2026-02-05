@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
   },
   // GitHub Pages için static export
   output: "export",
+  // Repo adına göre basePath ayarı
+  basePath: "/nilsumat",
+  // Asset prefix ayarı
+  assetPrefix: "/nilsumat",
   // Trailing slash için
   trailingSlash: true,
   // Görsel optimizasyonu devre dışı (static export için gerekli)
