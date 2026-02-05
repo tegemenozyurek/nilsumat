@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { basePath } from "@/lib/config";
 
-const images = ["/slider1.png", "/slider2.png", "/slider3.png"];
+const images = [`${basePath}/slider1.png`, `${basePath}/slider2.png`, `${basePath}/slider3.png`];
 
 export function ImageSlider() {
   const [index, setIndex] = useState(0);

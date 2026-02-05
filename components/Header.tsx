@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { basePath } from "@/lib/config";
 /**
  * Sayfanın üst navigasyon alanı:
  * - Logo / İsim (el yazısı font)
@@ -43,14 +45,16 @@ export function Header() {
       <div className="flex w-full items-center px-4 py-3 md:px-6 lg:px-10">
         {/* Sol: Logo / İsim (en solda) */}
         <div className="flex flex-1 justify-start">
-          <a
+          <Link
             href="/"
             className="flex flex-col leading-tight"
             onClick={(event) => {
-              event.preventDefault();
-              setActive("hakkimda");
-              scrollToSection("hakkimda");
-              close();
+              if (pathname === "/") {
+                event.preventDefault();
+                setActive("hakkimda");
+                scrollToSection("hakkimda");
+                close();
+              }
             }}
           >
             <span
@@ -59,7 +63,7 @@ export function Header() {
             >
               Nilsu Uğurlu
             </span>
-          </a>
+          </Link>
         </div>
 
         {/* Orta: Hakkımda / Dersler / Yorumlar (masaüstünde ortalı) */}
@@ -67,7 +71,7 @@ export function Header() {
           aria-label="Ana navigasyon"
           className="hidden flex-1 items-center justify-center gap-4 text-xs font-medium text-rose-900/80 md:flex lg:gap-6 lg:text-sm"
         >
-          <a
+          <Link
             href="/"
             onClick={(event) => {
               // Ana sayfadaysak scroll, başka sayfadaysak normal gezinme
@@ -85,8 +89,8 @@ export function Header() {
             }`}
           >
             Hakkımda
-          </a>
-          <a
+          </Link>
+          <Link
             href="/dersler"
             onClick={() => {
               setActive("dersler");
@@ -99,8 +103,8 @@ export function Header() {
             }`}
           >
             Dersler
-          </a>
-          <a
+          </Link>
+          <Link
             href="/yorumlar"
             onClick={() => {
               setActive("yorumlar");
@@ -113,12 +117,12 @@ export function Header() {
             }`}
           >
             Yorumlar
-          </a>
+          </Link>
         </nav>
 
         {/* Sağ: İletişim butonu (masaüstünde en sağda) + mobil burger */}
         <div className="flex flex-1 items-center justify-end gap-2">
-          <a
+          <Link
             href="/iletisim"
             onClick={() => {
               setActive("iletisim");
@@ -131,7 +135,7 @@ export function Header() {
             }`}
           >
             İletişim
-          </a>
+          </Link>
 
           {/* Mobil burger buton */}
           <button
@@ -169,7 +173,7 @@ export function Header() {
           className="border-t border-slate-200 bg-white/95 md:hidden"
         >
           <div className="mx-auto flex max-w-5xl flex-col gap-1 px-4 py-3 text-[12px] font-medium text-slate-900">
-            <a
+            <Link
               href="/"
               className={`rounded-lg px-2 py-1 hover:bg-rose-100 ${
                 active === "hakkimda" ? "bg-pink-50 font-semibold" : ""
@@ -184,8 +188,8 @@ export function Header() {
               }}
             >
               Hakkımda
-            </a>
-            <a
+            </Link>
+            <Link
               href="/dersler"
               className={`rounded-lg px-2 py-1 hover:bg-rose-100 ${
                 active === "dersler" ? "bg-pink-50 font-semibold" : ""
@@ -196,8 +200,8 @@ export function Header() {
               }}
             >
               Dersler
-            </a>
-            <a
+            </Link>
+            <Link
               href="/yorumlar"
               className={`rounded-lg px-2 py-1 hover:bg-rose-100 ${
                 active === "yorumlar" ? "bg-pink-50 font-semibold" : ""
@@ -208,8 +212,8 @@ export function Header() {
               }}
             >
               Yorumlar
-            </a>
-            <a
+            </Link>
+            <Link
               href="/iletisim"
               className={`mt-1 inline-flex w-max items-center rounded-full border px-3 py-1.5 text-[11px] font-semibold shadow-sm hover:bg-rose-100 ${
                 active === "iletisim"
@@ -222,7 +226,7 @@ export function Header() {
               }}
             >
               İletişim
-            </a>
+            </Link>
           </div>
         </nav>
       )}
