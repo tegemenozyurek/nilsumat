@@ -13,10 +13,6 @@ const nextConfig: NextConfig = {
   },
   // GitHub Pages için static export
   output: "export",
-  // Repo adına göre basePath ayarı
-  basePath: process.env.NODE_ENV === "production" ? "/nilsumat" : "",
-  // Asset prefix ayarı
-  assetPrefix: process.env.NODE_ENV === "production" ? "/nilsumat" : "",
   // Trailing slash için
   trailingSlash: true,
   // Görsel optimizasyonu devre dışı (static export için gerekli)
