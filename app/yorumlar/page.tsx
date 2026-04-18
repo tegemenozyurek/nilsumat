@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Header } from "@/components/Header";
-import { FaWhatsapp } from "react-icons/fa";
 
 const dummyYorumlar = [
   {
@@ -219,17 +218,6 @@ export default function YorumlarPage() {
             )}
           </article>
         </section>
-
-        {/* Sabit WhatsApp butonu */}
-        <a
-          href="https://wa.me/905000000000"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="WhatsApp üzerinden mesaj gönder"
-          className="fixed bottom-4 right-4 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg transition hover:bg-emerald-600 md:bottom-6 md:right-6"
-        >
-          <FaWhatsapp className="h-6 w-6" />
-        </a>
       </main>
 
       <footer className="border-t border-slate-200 bg-white/95">
