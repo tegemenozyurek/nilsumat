@@ -62,10 +62,10 @@ export function LessonsSlider() {
   };
 
   return (
-    <article className="flex h-[320px] min-h-[320px] max-h-[320px] w-full flex-col overflow-hidden rounded-2xl border border-rose-100 bg-gradient-to-br from-rose-50/80 via-white to-rose-50/70 p-5 shadow-sm">
+    <article className="flex h-[320px] min-h-[320px] max-h-[320px] w-full flex-col overflow-hidden rounded-2xl border border-rose-100 bg-gradient-to-br from-rose-50/80 via-white to-rose-50/70 p-5 shadow-sm lg:h-[220px] lg:min-h-[220px] lg:max-h-[220px] lg:p-4">
       {/* Üst satır: başlık + sayaç */}
       <div className="flex items-center justify-between gap-3">
-        <h2 className="text-xl font-semibold text-rose-950 md:text-2xl">
+        <h2 className="text-xl font-semibold text-rose-950 md:text-2xl lg:text-lg lg:leading-snug">
           {current.title}
         </h2>
         <span className="text-[11px] text-rose-500">
@@ -74,19 +74,19 @@ export function LessonsSlider() {
       </div>
 
       {/* Açıklama */}
-      <p className="mt-2 text-sm leading-relaxed text-rose-900/80 md:text-base">
+      <p className="mt-2 text-sm leading-relaxed text-rose-900/80 md:text-base lg:mt-1 lg:text-xs lg:leading-snug">
         {current.description}
       </p>
 
       {/* İçerik + kontroller: sabit yükseklik içinde, alt kontroller her zaman görünür */}
-      <div className="mt-4 flex flex-1 min-h-0 flex-col">
+      <div className="mt-4 flex flex-1 min-h-0 flex-col lg:mt-2">
         {/* Özellikler: fazla içerik olursa dikey scroll yapsın */}
         <div className="flex-1 min-h-0 overflow-y-auto pr-1 sm:pr-0">
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-2 lg:gap-2">
             {current.bullets.map((item) => (
               <div
                 key={item}
-                className="rounded-lg border border-rose-100 bg-white/90 px-3 py-2 text-sm shadow-[0_1px_3px_rgba(15,23,42,0.05)]"
+                className="rounded-lg border border-rose-100 bg-white/90 px-3 py-2 text-sm shadow-[0_1px_3px_rgba(15,23,42,0.05)] lg:px-2.5 lg:py-1.5 lg:text-xs"
               >
                 <p className="text-rose-900/85">{item}</p>
               </div>
@@ -95,7 +95,7 @@ export function LessonsSlider() {
         </div>
 
         {slides.length > 1 && (
-          <div className="mt-4 shrink-0 flex items-center justify-between gap-3">
+          <div className="mt-4 shrink-0 flex items-center justify-between gap-3 lg:mt-2">
             <button
               type="button"
               onClick={goPrev}
