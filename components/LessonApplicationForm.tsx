@@ -47,6 +47,7 @@ function setTurkishRequiredMessage(
 }
 
 type LessonApplicationFormProps = {
+  /** Varsayılan: Ders Başvuru Formu */
   title?: string;
 };
 

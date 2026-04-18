@@ -46,10 +46,10 @@ export function Header() {
     <header className="fixed top-0 z-30 w-full border-b border-slate-200 bg-white/95 backdrop-blur-sm shadow-sm">
       <div className="flex w-full items-center px-4 py-3 md:px-6 lg:px-10">
         {/* Sol: Logo / İsim (en solda) */}
-        <div className="flex flex-1 justify-start">
+        <div className="flex flex-initial justify-start md:flex-1">
           <Link
             href="/"
-            className="flex flex-col leading-tight"
+            className="leading-tight"
             onClick={(event) => {
               if (pathname === "/") {
                 event.preventDefault();
@@ -60,7 +60,7 @@ export function Header() {
             }}
           >
             <span
-              className="text-2xl font-normal text-rose-700"
+              className="text-xl font-normal text-rose-700 whitespace-nowrap sm:text-2xl"
               style={{ fontFamily: "var(--font-windsong)" }}
             >
               Nilsu Uğurlu
@@ -123,7 +123,7 @@ export function Header() {
         </nav>
 
         {/* Sağ: mobil burger */}
-        <div className="flex flex-1 items-center justify-end gap-2">
+        <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
           {/* Mobil burger buton */}
           <button
             type="button"
