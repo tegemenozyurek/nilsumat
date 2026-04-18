@@ -53,8 +53,8 @@ export default function YorumlarPage() {
 
         {/* Yorumlar (sol) + form (sağ) */}
         <section className="mx-auto mt-8 max-w-6xl px-4 md:mt-10 md:px-8">
-          <div className="grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-10">
-            <div className="flex flex-col gap-6">
+          <div className="grid gap-8 md:grid-cols-2 md:items-start lg:gap-10">
+            <div className="flex min-w-0 flex-col gap-6">
               {dummyYorumlar.map((yorum) => (
                 <article
                   key={yorum.id}
@@ -84,35 +84,35 @@ export default function YorumlarPage() {
               ))}
             </div>
 
-            <article className="rounded-2xl border border-rose-100 bg-white/95 p-5 shadow-sm md:p-6 lg:sticky lg:top-24">
-            <h2 className="text-lg font-semibold text-rose-950 md:text-xl">
-              Yorum Bırakın
-            </h2>
-            <p className="mt-2 text-xs leading-relaxed text-rose-900/80 md:text-sm">
-              Derslerimiz hakkındaki görüşlerinizi paylaşmak ister misiniz?
-              Yorumunuz onaylandıktan sonra bu sayfada yayınlanacaktır.
-            </p>
+            <article className="min-w-0 rounded-2xl border border-rose-100 bg-white/95 p-5 shadow-sm md:p-6 lg:sticky lg:top-24">
+              <h2 className="text-lg font-semibold text-rose-950 md:text-xl">
+                Yorum Bırakın
+              </h2>
+              <p className="mt-2 text-xs leading-relaxed text-rose-900/80 md:text-sm">
+                Derslerimiz hakkındaki görüşlerinizi paylaşmak ister misiniz?
+                Yorumunuz onaylandıktan sonra bu sayfada yayınlanacaktır.
+              </p>
 
-            <form
-              className="mt-4 space-y-3 text-xs md:text-sm"
-              onSubmit={(e) => {
-                e.preventDefault();
-                setShowNotification(true);
-                setTimeout(() => {
-                  setShowNotification(false);
-                }, 3000);
-              }}
-            >
-              <div>
-                <label className="block text-[11px] font-medium text-rose-900/90 md:text-xs">
-                  Veli Adı Soyadı
-                </label>
-                <input
-                  type="text"
-                  required
-                  className="mt-1 w-full rounded-lg border border-rose-100 bg-white px-3 py-2 text-sm text-rose-950 shadow-sm outline-none ring-0 focus:border-pink-300 focus:ring-2 focus:ring-pink-100"
-                />
-              </div>
+              <form
+                className="mt-4 space-y-3 text-xs md:text-sm"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setShowNotification(true);
+                  setTimeout(() => {
+                    setShowNotification(false);
+                  }, 3000);
+                }}
+              >
+                <div>
+                  <label className="block text-[11px] font-medium text-rose-900/90 md:text-xs">
+                    Veli Adı Soyadı
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    className="mt-1 w-full rounded-lg border border-rose-100 bg-white px-3 py-2 text-sm text-rose-950 shadow-sm outline-none ring-0 focus:border-pink-300 focus:ring-2 focus:ring-pink-100"
+                  />
+                </div>
 
               <div className="grid gap-3 sm:grid-cols-2">
                 <div>
@@ -164,15 +164,15 @@ export default function YorumlarPage() {
               >
                 Yorumu Gönder
               </button>
-            </form>
+              </form>
 
-            {/* Bildirim */}
-            {showNotification && (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-xs text-emerald-800 shadow-sm md:text-sm">
-                ✓ Yorumunuz gönderildi! Onaylandıktan sonra bu sayfada
-                yayınlanacaktır.
-              </div>
-            )}
+              {/* Bildirim */}
+              {showNotification && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-xs text-emerald-800 shadow-sm md:text-sm">
+                  ✓ Yorumunuz gönderildi! Onaylandıktan sonra bu sayfada
+                  yayınlanacaktır.
+                </div>
+              )}
             </article>
           </div>
         </section>
