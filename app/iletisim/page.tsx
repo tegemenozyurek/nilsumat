@@ -18,8 +18,9 @@ export default function IletisimPage() {
               </h1>
               <p className="mt-3 text-sm leading-relaxed text-rose-900/85 md:text-base">
                 Ortaokul, LGS, TYT ve AYT seviyelerinde; öğrencinin ihtiyacına
-                göre planlanan birebir matematik dersleri sunuyorum. Ders
-                talebiniz için başvuru formunu doldurabilirsiniz.
+                göre planlanan birebir matematik dersleri sunuyorum. Derslerim
+                hakkında bilgi almak ve ders planlamak için lütfen Ders Bilgi
+                Formunu doldurunuz
               </p>
               <div className="mx-auto mt-10 w-full max-w-[96px] sm:mt-14 sm:max-w-[200px] lg:mt-20 lg:max-w-[260px]">
                 <Image

@@ -65,14 +65,13 @@ function phoneFieldInvalid(e: InvalidEvent<HTMLInputElement>) {
 }
 
 type LessonApplicationFormProps = {
-  /** Varsayılan: Ders Başvuru Formu */
+  /** Varsayılan: Ders Bilgi Formu */
   title?: string;
 };
 
 export function LessonApplicationForm({
-  title = "Ders Başvuru Formu",
+  title = "Ders Bilgi Formu",
 }: LessonApplicationFormProps) {
-  const [showNotification, setShowNotification] = useState(false);
   const [phone, setPhone] = useState("");
 
   const onPhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -87,7 +86,7 @@ export function LessonApplicationForm({
       </h2>
       <p className="mt-2 text-xs leading-relaxed text-rose-900/80 md:text-sm">
         Aşağıdaki formu doldurarak ders talebinde bulunabilirsiniz. En kısa
-        sürede sizinle e-posta veya telefon üzerinden iletişime geçeceğim.
+        sürede sizinle Eposta veya telefon üzerinden iletişime geçeceğim.
       </p>
 
       <form
@@ -95,10 +94,34 @@ export function LessonApplicationForm({
         className="mt-4 space-y-3 text-xs md:text-sm"
         onSubmit={(e) => {
           e.preventDefault();
-          setShowNotification(true);
-          setTimeout(() => {
-            setShowNotification(false);
-          }, 3000);
+          const fd = new FormData(e.currentTarget);
+          const ogrenci = String(fd.get("ogrenci") ?? "").trim();
+          const telefon = String(fd.get("telefon") ?? "").trim();
+          const sinif = String(fd.get("sinif") ?? "").trim();
+          const saat = String(fd.get("saat") ?? "").trim();
+          const gunler = (fd.getAll("gunler") as string[]).filter(Boolean);
+          const notlar = String(fd.get("notlar") ?? "").trim();
+
+          const subject = "Ders Bilgi Talebi";
+          const body = [
+            "Merhaba,",
+            "",
+            "Ders Bilgi Formu bilgileri:",
+            `- Öğrenci Adı Soyadı: ${ogrenci}`,
+            `- Telefon: ${telefon}`,
+            `- Sınıf / Seviye: ${sinif}`,
+            `- Tercih edilen saat: ${saat || "-"}`,
+            `- Gün tercihi: ${gunler.length ? gunler.join(", ") : "-"}`,
+            `- Kısa not / hedefler: ${notlar || "-"}`,
+            "",
+            "Teşekkürler.",
+          ].join("\n");
+
+          const mailto = `mailto:nilsuugurluu@gmail.com?subject=${encodeURIComponent(
+            subject,
+          )}&body=${encodeURIComponent(body)}`;
+
+          window.location.href = mailto;
         }}
       >
         <div>
@@ -197,6 +220,8 @@ export function LessonApplicationForm({
               >
                 <input
                   type="checkbox"
+                  name="gunler"
+                  value={day}
                   className="h-3 w-3 rounded border-rose-300 text-pink-500 focus:ring-pink-400"
                 />
                 <span className="text-rose-900/85">{day}</span>
@@ -211,6 +236,7 @@ export function LessonApplicationForm({
           </label>
           <textarea
             rows={3}
+            name="notlar"
             className="mt-1 w-full resize-none rounded-lg border border-rose-100 bg-white px-3 py-2 text-sm text-rose-950 shadow-sm outline-none ring-0 focus:border-pink-300 focus:ring-2 focus:ring-pink-100"
             placeholder="Öğrencinin durumu, sınav hedefi, özellikle zorlandığı konular vb."
           />
@@ -223,13 +249,6 @@ export function LessonApplicationForm({
           Gönder
         </button>
       </form>
-
-      {showNotification && (
-        <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-xs text-emerald-800 shadow-sm md:text-sm">
-          {"\u2713"} Başvurunuz gönderildi! En kısa sürede sizinle iletişime
-          geçeceğim.
-        </div>
-      )}
     </article>
   );
 }
