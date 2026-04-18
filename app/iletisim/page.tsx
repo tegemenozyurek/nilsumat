@@ -56,20 +56,36 @@ export default function IletisimPage() {
                   sizes="(max-width: 640px) 96px, (max-width: 1024px) 200px, 260px"
                 />
               </div>
-              <div className="mt-4 flex items-center justify-center gap-2 text-sm text-rose-900/85">
-                <span className="inline-flex items-center gap-2 font-medium">
-                  <FaEnvelope className="h-4 w-4 text-rose-600" aria-hidden="true" />
-                  {email}
-                </span>
-                <button
-                  type="button"
-                  onClick={copyEmail}
-                  className="inline-flex items-center gap-1 rounded-md border border-rose-200 bg-white px-2 py-1 text-[12px] font-semibold text-rose-700 shadow-sm transition hover:bg-rose-50"
-                  aria-label="E-posta adresini kopyala"
-                >
-                  <FaRegCopy className="h-4 w-4" />
-                  {copied ? "Kopyalandı" : "Kopyala"}
-                </button>
+              <div className="mt-5 flex justify-center">
+                <div className="flex w-full max-w-md flex-col gap-3 rounded-2xl border border-rose-100 bg-white/90 px-4 py-3 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-rose-100 text-rose-700">
+                      <FaEnvelope className="h-5 w-5" aria-hidden="true" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-rose-500">
+                        E-posta
+                      </p>
+                      <p className="break-all text-sm font-semibold text-rose-950">
+                        {email}
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={copyEmail}
+                    className={`inline-flex w-full items-center justify-center gap-2 rounded-full border px-3 py-2 text-xs font-semibold shadow-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300 focus-visible:ring-offset-2 sm:w-auto ${
+                      copied
+                        ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+                        : "border-rose-200 bg-rose-50 text-rose-800 hover:bg-rose-100"
+                    }`}
+                    aria-label="E-posta adresini kopyala"
+                  >
+                    <FaRegCopy className="h-4 w-4" />
+                    {copied ? "Kopyalandı" : "Kopyala"}
+                  </button>
+                </div>
               </div>
             </div>
             <LessonApplicationForm />
