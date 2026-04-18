@@ -1,8 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+
+type NavKey = "hakkimda" | "iletisim" | "yorumlar";
+
+function activeNavFromPath(pathname: string | null): NavKey | null {
+  if (!pathname || pathname === "/") return "hakkimda";
+  if (pathname === "/iletisim" || pathname.startsWith("/iletisim/"))
+    return "iletisim";
+  if (pathname === "/yorumlar" || pathname.startsWith("/yorumlar/"))
+    return "yorumlar";
+  return null;
+}
+
 /**
  * Sayfanın üst navigasyon alanı:
  * - Logo / İsim (el yazısı font)
@@ -11,28 +23,11 @@ import Link from "next/link";
  */
 export function Header() {
   const pathname = usePathname();
+  const active = activeNavFromPath(pathname);
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState<"hakkimda" | "iletisim" | "yorumlar" | null>(() => {
-    if (pathname === "/iletisim") return "iletisim";
-    if (pathname === "/yorumlar") return "yorumlar";
-    if (pathname === "/") return "hakkimda";
-    return null;
-  });
 
   const toggle = () => setOpen((prev) => !prev);
   const close = () => setOpen(false);
-
-  useEffect(() => {
-    if (pathname === "/iletisim") {
-      setActive("iletisim");
-    } else if (pathname === "/yorumlar") {
-      setActive("yorumlar");
-    } else if (pathname === "/") {
-      setActive("hakkimda");
-    } else {
-      setActive(null);
-    }
-  }, [pathname]);
 
   const scrollToSection = (id: string) => {
     if (typeof document === "undefined") return;
@@ -53,7 +48,6 @@ export function Header() {
             onClick={(event) => {
               if (pathname === "/") {
                 event.preventDefault();
-                setActive("hakkimda");
                 scrollToSection("hakkimda");
                 close();
               }
@@ -75,11 +69,11 @@ export function Header() {
         >
           <Link
             href="/"
+            aria-current={active === "hakkimda" ? "page" : undefined}
             onClick={(event) => {
               // Ana sayfadaysak scroll, başka sayfadaysak normal gezinme
               if (pathname === "/") {
                 event.preventDefault();
-                setActive("hakkimda");
                 scrollToSection("hakkimda");
                 close();
               }
@@ -94,10 +88,8 @@ export function Header() {
           </Link>
           <Link
             href="/iletisim"
-            onClick={() => {
-              setActive("iletisim");
-              close();
-            }}
+            aria-current={active === "iletisim" ? "page" : undefined}
+            onClick={() => close()}
             className={`rounded-full border px-3 py-1 transition ${
               active === "iletisim"
                 ? "border-pink-400 bg-pink-50 text-pink-900 shadow-sm"
@@ -108,10 +100,8 @@ export function Header() {
           </Link>
           <Link
             href="/yorumlar"
-            onClick={() => {
-              setActive("yorumlar");
-              close();
-            }}
+            aria-current={active === "yorumlar" ? "page" : undefined}
+            onClick={() => close()}
             className={`rounded-full border px-3 py-1 transition ${
               active === "yorumlar"
                 ? "border-pink-400 bg-pink-50 text-pink-900 shadow-sm"
@@ -162,13 +152,13 @@ export function Header() {
           <div className="mx-auto flex max-w-5xl flex-col gap-1 px-4 py-3 text-[12px] font-medium text-slate-900">
             <Link
               href="/"
+              aria-current={active === "hakkimda" ? "page" : undefined}
               className={`rounded-lg px-2 py-1 hover:bg-rose-100 ${
                 active === "hakkimda" ? "bg-pink-50 font-semibold" : ""
               }`}
               onClick={(event) => {
                 if (pathname === "/") {
                   event.preventDefault();
-                  setActive("hakkimda");
                   scrollToSection("hakkimda");
                   close();
                 }
@@ -178,25 +168,21 @@ export function Header() {
             </Link>
             <Link
               href="/iletisim"
+              aria-current={active === "iletisim" ? "page" : undefined}
               className={`rounded-lg px-2 py-1 hover:bg-rose-100 ${
                 active === "iletisim" ? "bg-pink-50 font-semibold" : ""
               }`}
-              onClick={() => {
-                setActive("iletisim");
-                close();
-              }}
+              onClick={() => close()}
             >
               İletişim
             </Link>
             <Link
               href="/yorumlar"
+              aria-current={active === "yorumlar" ? "page" : undefined}
               className={`rounded-lg px-2 py-1 hover:bg-rose-100 ${
                 active === "yorumlar" ? "bg-pink-50 font-semibold" : ""
               }`}
-              onClick={() => {
-                setActive("yorumlar");
-                close();
-              }}
+              onClick={() => close()}
             >
               Yorumlar
             </Link>
