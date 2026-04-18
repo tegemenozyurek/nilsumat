@@ -103,18 +103,34 @@ export function LessonApplicationForm({
           const notlar = String(fd.get("notlar") ?? "").trim();
 
           const subject = "Ders Bilgi Talebi";
+          const now = new Date();
+          const submittedAt = now.toLocaleString("tr-TR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          });
           const body = [
-            "Merhaba,",
+            "Merhaba Nilsu Öğretmenim,",
             "",
-            "Ders Bilgi Formu bilgileri:",
-            `- Öğrenci Adı Soyadı: ${ogrenci}`,
-            `- Telefon: ${telefon}`,
-            `- Sınıf / Seviye: ${sinif}`,
-            `- Tercih edilen saat: ${saat || "-"}`,
-            `- Gün tercihi: ${gunler.length ? gunler.join(", ") : "-"}`,
-            `- Kısa not / hedefler: ${notlar || "-"}`,
+            "Ders Bilgi Formu",
+            "────────────────────────",
+            `Tarih/Saat : ${submittedAt}`,
             "",
-            "Teşekkürler.",
+            "Öğrenci Bilgileri",
+            `- Ad Soyad  : ${ogrenci}`,
+            `- Telefon   : ${telefon}`,
+            `- Seviye    : ${sinif}`,
+            "",
+            "Ders Tercihleri",
+            `- Saat      : ${saat || "-"}`,
+            `- Günler    : ${gunler.length ? gunler.join(", ") : "-"}`,
+            "",
+            "Kısa Not / Hedefler",
+            notlar ? notlar : "-",
+            "",
+            "Teşekkür ederim.",
           ].join("\n");
 
           const mailto = `mailto:nilsuugurluu@gmail.com?subject=${encodeURIComponent(
