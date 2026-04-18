@@ -106,7 +106,7 @@ export default function IletisimPage() {
               </div>
             </div>
 
-            <LessonApplicationForm />
+            <LessonApplicationForm title="İletişim" />
           </div>
         </section>
 

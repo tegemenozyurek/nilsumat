@@ -12,22 +12,25 @@ import Link from "next/link";
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState<"hakkimda" | "dersler" | "yorumlar" | "iletisim">(
-    pathname === "/dersler" ? "dersler" : "hakkimda"
-  );
+  const [active, setActive] = useState<"hakkimda" | "iletisim" | "yorumlar" | null>(() => {
+    if (pathname === "/iletisim") return "iletisim";
+    if (pathname === "/yorumlar") return "yorumlar";
+    if (pathname === "/") return "hakkimda";
+    return null;
+  });
 
   const toggle = () => setOpen((prev) => !prev);
   const close = () => setOpen(false);
 
   useEffect(() => {
-    if (pathname === "/dersler") {
-      setActive("dersler");
+    if (pathname === "/iletisim") {
+      setActive("iletisim");
     } else if (pathname === "/yorumlar") {
       setActive("yorumlar");
-    } else if (pathname === "/iletisim") {
-      setActive("iletisim");
-    } else {
+    } else if (pathname === "/") {
       setActive("hakkimda");
+    } else {
+      setActive(null);
     }
   }, [pathname]);
 
@@ -65,7 +68,7 @@ export function Header() {
           </Link>
         </div>
 
-        {/* Orta: Hakkımda / Dersler / Yorumlar (masaüstünde ortalı) */}
+        {/* Orta: Hakkımda / İletişim / Yorumlar (masaüstünde ortalı) */}
         <nav
           aria-label="Ana navigasyon"
           className="hidden flex-1 items-center justify-center gap-4 text-xs font-medium text-rose-900/80 md:flex lg:gap-6 lg:text-sm"
@@ -90,18 +93,18 @@ export function Header() {
             Hakkımda
           </Link>
           <Link
-            href="/dersler"
+            href="/iletisim"
             onClick={() => {
-              setActive("dersler");
+              setActive("iletisim");
               close();
             }}
             className={`rounded-full border px-3 py-1 transition ${
-              active === "dersler"
+              active === "iletisim"
                 ? "border-pink-400 bg-pink-50 text-pink-900 shadow-sm"
                 : "border-transparent hover:border-pink-300 hover:bg-white/80 hover:text-rose-900"
             }`}
           >
-            Dersler
+            İletişim
           </Link>
           <Link
             href="/yorumlar"
@@ -119,23 +122,8 @@ export function Header() {
           </Link>
         </nav>
 
-        {/* Sağ: İletişim butonu (masaüstünde en sağda) + mobil burger */}
+        {/* Sağ: mobil burger */}
         <div className="flex flex-1 items-center justify-end gap-2">
-          <Link
-            href="/iletisim"
-            onClick={() => {
-              setActive("iletisim");
-              close();
-            }}
-            className={`hidden rounded-full border px-4 py-1.5 text-xs font-semibold shadow-sm transition md:inline-flex lg:text-sm ${
-              active === "iletisim"
-                ? "border-pink-400 bg-pink-400 text-white hover:bg-pink-500"
-                : "border-slate-300 bg-slate-50 text-slate-800 hover:bg-slate-100 hover:text-slate-900"
-            }`}
-          >
-            İletişim
-          </Link>
-
           {/* Mobil burger buton */}
           <button
             type="button"
@@ -189,16 +177,16 @@ export function Header() {
               Hakkımda
             </Link>
             <Link
-              href="/dersler"
+              href="/iletisim"
               className={`rounded-lg px-2 py-1 hover:bg-rose-100 ${
-                active === "dersler" ? "bg-pink-50 font-semibold" : ""
+                active === "iletisim" ? "bg-pink-50 font-semibold" : ""
               }`}
               onClick={() => {
-                setActive("dersler");
+                setActive("iletisim");
                 close();
               }}
             >
-              Dersler
+              İletişim
             </Link>
             <Link
               href="/yorumlar"
@@ -211,20 +199,6 @@ export function Header() {
               }}
             >
               Yorumlar
-            </Link>
-            <Link
-              href="/iletisim"
-              className={`mt-1 inline-flex w-max items-center rounded-full border px-3 py-1.5 text-[11px] font-semibold shadow-sm hover:bg-rose-100 ${
-                active === "iletisim"
-                  ? "border-pink-400 bg-pink-400 text-white"
-                  : "border-rose-300 bg-white/90 text-rose-700"
-              }`}
-              onClick={() => {
-                setActive("iletisim");
-                close();
-              }}
-            >
-              İletişim
             </Link>
           </div>
         </nav>

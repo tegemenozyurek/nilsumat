@@ -46,13 +46,19 @@ function setTurkishRequiredMessage(
   el.setCustomValidity("");
 }
 
-export function LessonApplicationForm() {
+type LessonApplicationFormProps = {
+  title?: string;
+};
+
+export function LessonApplicationForm({
+  title = "Ders Başvuru Formu",
+}: LessonApplicationFormProps) {
   const [showNotification, setShowNotification] = useState(false);
 
   return (
     <article className="rounded-2xl border border-rose-100 bg-white/95 p-6 shadow-sm md:p-8">
       <h2 className="text-lg font-semibold text-rose-950 md:text-xl">
-        Ders Başvuru Formu
+        {title}
       </h2>
       <p className="mt-2 text-xs leading-relaxed text-rose-900/80 md:text-sm">
         Aşağıdaki formu doldurarak ders talebinde bulunabilirsiniz. En kısa
