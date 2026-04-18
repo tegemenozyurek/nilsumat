@@ -1,11 +1,37 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { Header } from "@/components/Header";
 import { LessonApplicationForm } from "@/components/LessonApplicationForm";
+import { FaEnvelope, FaRegCopy } from "react-icons/fa";
 import iconsIllustration from "../icons.webp";
 
 export default function IletisimPage() {
+  const email = "nilsuugurluu@gmail.com";
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+    } catch {
+      // Fallback for older browsers / restricted contexts
+      const ta = document.createElement("textarea");
+      ta.value = email;
+      ta.style.position = "fixed";
+      ta.style.left = "-9999px";
+      ta.style.top = "0";
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+    }
+
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1600);
+  };
+
   return (
     <>
       <Header />
@@ -29,6 +55,21 @@ export default function IletisimPage() {
                   className="h-auto w-full"
                   sizes="(max-width: 640px) 96px, (max-width: 1024px) 200px, 260px"
                 />
+              </div>
+              <div className="mt-4 flex items-center justify-center gap-2 text-sm text-rose-900/85">
+                <span className="inline-flex items-center gap-2 font-medium">
+                  <FaEnvelope className="h-4 w-4 text-rose-600" aria-hidden="true" />
+                  {email}
+                </span>
+                <button
+                  type="button"
+                  onClick={copyEmail}
+                  className="inline-flex items-center gap-1 rounded-md border border-rose-200 bg-white px-2 py-1 text-[12px] font-semibold text-rose-700 shadow-sm transition hover:bg-rose-50"
+                  aria-label="E-posta adresini kopyala"
+                >
+                  <FaRegCopy className="h-4 w-4" />
+                  {copied ? "Kopyalandı" : "Kopyala"}
+                </button>
               </div>
             </div>
             <LessonApplicationForm />
