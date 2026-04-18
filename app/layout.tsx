@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Dancing_Script, Inter, Poppins, WindSong } from "next/font/google";
 import "./globals.css";
+import { ClickConfetti } from "@/components/ClickConfetti";
 
 // Ana gövde fontu: Inter
 const inter = Inter({
@@ -58,6 +59,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${poppins.variable} ${dancingScript.variable} ${windSong.variable} antialiased bg-background text-foreground`}
       >
+        <ClickConfetti />
         {children}
       </body>
     </html>
