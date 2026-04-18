@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { basePath } from "@/lib/config";
 /**
  * Sayfanın üst navigasyon alanı:
  * - Logo / İsim (el yazısı font)
