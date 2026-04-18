@@ -2,14 +2,12 @@
 
 import { useEffect } from "react";
 
-const SYMBOLS = ["+", "−", "×", "%"] as const;
+const SYMBOLS = ["+", "−", "×", "%", "!", "=", ">", "<"] as const;
 
-function isDesktopFinePointer() {
-  if (typeof window === "undefined") return false;
-  const fine = window.matchMedia?.("(pointer: fine)").matches ?? false;
-  const hover = window.matchMedia?.("(hover: hover)").matches ?? false;
-  const wide = window.matchMedia?.("(min-width: 1024px)").matches ?? false;
-  return fine && hover && wide;
+function preferredParticleCount() {
+  if (typeof window === "undefined") return 0;
+  const coarse = window.matchMedia?.("(pointer: coarse)").matches ?? false;
+  return coarse ? 10 : 14;
 }
 
 function rand(min: number, max: number) {
@@ -70,8 +68,6 @@ function createParticle(x: number, y: number) {
 
 export function ClickConfetti() {
   useEffect(() => {
-    if (!isDesktopFinePointer()) return;
-
     const onClick = (ev: MouseEvent) => {
       // Ignore clicks on interactive controls to avoid visual noise
       const target = ev.target as HTMLElement | null;
@@ -79,7 +75,7 @@ export function ClickConfetti() {
       if (tag && ["a", "button", "input", "select", "textarea", "label"].includes(tag)) return;
       if (target?.closest?.("a,button,input,select,textarea,label")) return;
 
-      const count = 14;
+      const count = preferredParticleCount();
       for (let i = 0; i < count; i++) {
         const p = createParticle(ev.clientX, ev.clientY);
         document.body.appendChild(p);
