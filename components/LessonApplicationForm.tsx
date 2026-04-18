@@ -1,6 +1,50 @@
 "use client";
 
+import type {
+  ChangeEventHandler,
+  FormEvent,
+  InvalidEvent,
+} from "react";
 import { useState } from "react";
+
+const WEEKDAYS_TR = [
+  "Pazartesi",
+  "Salı",
+  "Çarşamba",
+  "Perşembe",
+  "Cuma",
+  "Cumartesi",
+  "Pazar",
+] as const;
+
+type Validatable =
+  | HTMLInputElement
+  | HTMLSelectElement
+  | HTMLTextAreaElement;
+
+function clearNativeValidity(e: FormEvent<Validatable>) {
+  e.currentTarget.setCustomValidity("");
+}
+
+const clearSelectValidity: ChangeEventHandler<HTMLSelectElement> = (e) => {
+  e.currentTarget.setCustomValidity("");
+};
+
+function setTurkishRequiredMessage(
+  e: InvalidEvent<Validatable>,
+  bosMesaj: string,
+) {
+  const el = e.currentTarget;
+  if (el.validity.valueMissing) {
+    el.setCustomValidity(bosMesaj);
+    return;
+  }
+  if (el.validity.typeMismatch) {
+    el.setCustomValidity("Lütfen geçerli bir değer girin.");
+    return;
+  }
+  el.setCustomValidity("");
+}
 
 export function LessonApplicationForm() {
   const [showNotification, setShowNotification] = useState(false);
@@ -16,6 +60,7 @@ export function LessonApplicationForm() {
       </p>
 
       <form
+        lang="tr"
         className="mt-4 space-y-3 text-xs md:text-sm"
         onSubmit={(e) => {
           e.preventDefault();
@@ -31,7 +76,15 @@ export function LessonApplicationForm() {
           </label>
           <input
             type="text"
+            name="ogrenci"
             required
+            onInvalid={(e) =>
+              setTurkishRequiredMessage(
+                e,
+                "Lütfen öğrenci adı ve soyadını yazın.",
+              )
+            }
+            onInput={clearNativeValidity}
             className="mt-1 w-full rounded-lg border border-rose-100 bg-white px-3 py-2 text-sm text-rose-950 shadow-sm outline-none ring-0 focus:border-pink-300 focus:ring-2 focus:ring-pink-100"
           />
         </div>
@@ -42,9 +95,14 @@ export function LessonApplicationForm() {
               Sınıf / Seviye
             </label>
             <select
+              name="sinif"
               className="mt-1 w-full rounded-lg border border-rose-100 bg-white px-3 py-2 text-sm text-rose-950 shadow-sm outline-none ring-0 focus:border-pink-300 focus:ring-2 focus:ring-pink-100"
               defaultValue=""
               required
+              onInvalid={(e) =>
+                setTurkishRequiredMessage(e, "Lütfen sınıf veya seviye seçin.")
+              }
+              onChange={clearSelectValidity}
             >
               <option value="" disabled>
                 Seçiniz
@@ -61,6 +119,7 @@ export function LessonApplicationForm() {
               Tercih edilen saat
             </label>
             <select
+              name="saat"
               className="mt-1 w-full rounded-lg border border-rose-100 bg-white px-3 py-2 text-sm text-rose-950 shadow-sm outline-none ring-0 focus:border-pink-300 focus:ring-2 focus:ring-pink-100"
               defaultValue=""
             >
@@ -77,14 +136,10 @@ export function LessonApplicationForm() {
 
         <div>
           <span className="block text-[11px] font-medium text-rose-900/90 md:text-xs">
-            Tercih edilen günler
+            Gün Tercihi
           </span>
-          <p className="text-[11px] text-rose-500 md:text-xs">
-            Dersler sadece Salı, Çarşamba, Perşembe ve Cuma günlerinde
-            yapılmaktadır.
-          </p>
-          <div className="mt-2 grid grid-cols-2 gap-2 text-[11px] md:grid-cols-2 md:text-xs">
-            {["Salı", "Çarşamba", "Perşembe", "Cuma"].map((day) => (
+          <div className="mt-2 grid grid-cols-2 gap-2 text-[11px] sm:grid-cols-3 md:text-xs">
+            {WEEKDAYS_TR.map((day) => (
               <label
                 key={day}
                 className="flex items-center gap-2 rounded-lg border border-rose-100 bg-rose-50/70 px-2 py-1.5"
