@@ -22,12 +22,12 @@ export default function IletisimPage() {
                 göre planlanan birebir matematik dersleri sunuyorum. Ders
                 talebiniz için başvuru formunu doldurabilirsiniz.
               </p>
-              <div className="mx-auto mt-16 w-full max-w-[220px] sm:mt-20 sm:max-w-[260px]">
+              <div className="mx-auto mt-10 w-full max-w-[96px] sm:mt-14 sm:max-w-[200px] lg:mt-20 lg:max-w-[260px]">
                 <Image
                   src={iconsIllustration}
                   alt="Matematik dersleri görseli"
                   className="h-auto w-full"
-                  sizes="(max-width: 640px) 220px, 260px"
+                  sizes="(max-width: 640px) 96px, (max-width: 1024px) 200px, 260px"
                 />
               </div>
             </div>

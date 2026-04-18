@@ -1,6 +1,7 @@
 "use client";
 
 import type {
+  ChangeEvent,
   ChangeEventHandler,
   FormEvent,
   InvalidEvent,
@@ -46,6 +47,23 @@ function setTurkishRequiredMessage(
   el.setCustomValidity("");
 }
 
+function digitsOnlyMax10(value: string): string {
+  return value.replace(/\D/g, "").slice(0, 10);
+}
+
+function phoneFieldInvalid(e: InvalidEvent<HTMLInputElement>) {
+  const el = e.currentTarget;
+  if (el.validity.valueMissing) {
+    el.setCustomValidity("Lütfen 10 haneli telefon numaranızı girin.");
+    return;
+  }
+  if (el.validity.tooShort || el.validity.tooLong) {
+    el.setCustomValidity("Telefon numarası tam olarak 10 haneli olmalıdır.");
+    return;
+  }
+  el.setCustomValidity("");
+}
+
 type LessonApplicationFormProps = {
   /** Varsayılan: Ders Başvuru Formu */
   title?: string;
@@ -55,6 +73,12 @@ export function LessonApplicationForm({
   title = "Ders Başvuru Formu",
 }: LessonApplicationFormProps) {
   const [showNotification, setShowNotification] = useState(false);
+  const [phone, setPhone] = useState("");
+
+  const onPhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPhone(digitsOnlyMax10(e.target.value));
+    e.target.setCustomValidity("");
+  };
 
   return (
     <article className="rounded-2xl border border-rose-100 bg-white/95 p-6 shadow-sm md:p-8">
@@ -63,7 +87,7 @@ export function LessonApplicationForm({
       </h2>
       <p className="mt-2 text-xs leading-relaxed text-rose-900/80 md:text-sm">
         Aşağıdaki formu doldurarak ders talebinde bulunabilirsiniz. En kısa
-        sürede sizinle WhatsApp veya telefon üzerinden iletişime geçeceğim.
+        sürede sizinle e-posta veya telefon üzerinden iletişime geçeceğim.
       </p>
 
       <form
@@ -92,6 +116,26 @@ export function LessonApplicationForm({
               )
             }
             onInput={clearNativeValidity}
+            className="mt-1 w-full rounded-lg border border-rose-100 bg-white px-3 py-2 text-sm text-rose-950 shadow-sm outline-none ring-0 focus:border-pink-300 focus:ring-2 focus:ring-pink-100"
+          />
+        </div>
+
+        <div>
+          <label className="block text-[11px] font-medium text-rose-900/90 md:text-xs">
+            Telefon
+          </label>
+          <input
+            type="text"
+            name="telefon"
+            required
+            minLength={10}
+            maxLength={10}
+            inputMode="numeric"
+            autoComplete="tel"
+            placeholder="Örn. 5XX XXX XX XX"
+            value={phone}
+            onChange={onPhoneChange}
+            onInvalid={phoneFieldInvalid}
             className="mt-1 w-full rounded-lg border border-rose-100 bg-white px-3 py-2 text-sm text-rose-950 shadow-sm outline-none ring-0 focus:border-pink-300 focus:ring-2 focus:ring-pink-100"
           />
         </div>
