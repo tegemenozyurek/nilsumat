@@ -73,6 +73,7 @@ export function LessonApplicationForm({
   title = "Ders Bilgi Formu",
 }: LessonApplicationFormProps) {
   const [phone, setPhone] = useState("");
+  const [mailRedirectNotice, setMailRedirectNotice] = useState(false);
 
   const onPhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPhone(digitsOnlyMax10(e.target.value));
@@ -137,7 +138,11 @@ export function LessonApplicationForm({
             subject,
           )}&body=${encodeURIComponent(body)}`;
 
-          window.location.href = mailto;
+          setMailRedirectNotice(true);
+          // Bildirim DOM'a basılsın diye küçük gecikme
+          setTimeout(() => {
+            window.location.href = mailto;
+          }, 120);
         }}
       >
         <div>
@@ -265,6 +270,16 @@ export function LessonApplicationForm({
           Gönder
         </button>
       </form>
+
+      {mailRedirectNotice && (
+        <div
+          role="status"
+          className="mt-3 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-xs text-rose-800 shadow-sm md:text-sm"
+        >
+          Mail uygulamanıza yönlendirildiniz. Eğer otomatik açılmadıysa lütfen
+          tarayıcı izinlerini kontrol edin.
+        </div>
+      )}
     </article>
   );
 }
