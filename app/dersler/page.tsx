@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { Header } from "@/components/Header";
 import { LessonApplicationForm } from "@/components/LessonApplicationForm";
 import { FaWhatsapp } from "react-icons/fa";
+import iconsIllustration from "../icons.webp";
 
 export default function DerslerPage() {
   return (
@@ -20,6 +22,14 @@ export default function DerslerPage() {
                 göre planlanan birebir matematik dersleri sunuyorum. Ders
                 talebiniz için başvuru formunu doldurabilirsiniz.
               </p>
+              <div className="mx-auto mt-16 w-full max-w-[220px] sm:mt-20 sm:max-w-[260px]">
+                <Image
+                  src={iconsIllustration}
+                  alt="Matematik dersleri görseli"
+                  className="h-auto w-full"
+                  sizes="(max-width: 640px) 220px, 260px"
+                />
+              </div>
             </div>
             <LessonApplicationForm />
           </div>
