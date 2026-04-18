@@ -1,6 +1,7 @@
 "use client";
 
 import { Header } from "@/components/Header";
+import { LessonApplicationForm } from "@/components/LessonApplicationForm";
 import { FaWhatsapp, FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 export default function IletisimPage() {
@@ -105,24 +106,7 @@ export default function IletisimPage() {
               </div>
             </div>
 
-            {/* Ders Günleri */}
-            <div className="rounded-2xl border border-rose-100 bg-white/95 p-6 shadow-sm md:p-8">
-              <h3 className="text-xl font-semibold text-rose-950 md:text-2xl">
-                Ders Günleri
-              </h3>
-              <div className="mt-6 space-y-4">
-                <div className="rounded-xl border border-emerald-100 bg-emerald-50/30 p-4">
-                  <p className="text-base font-semibold text-emerald-700 md:text-lg">
-                    Salı, Çarşamba, Perşembe, Cuma
-                  </p>
-                </div>
-                <div className="rounded-xl border border-rose-100 bg-rose-50/30 p-4">
-                  <p className="text-sm text-rose-600 md:text-base">
-                    Pazartesi ve hafta sonu ders yapılmamaktadır.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <LessonApplicationForm />
           </div>
         </section>
 

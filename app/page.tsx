@@ -1,7 +1,7 @@
 import { Header } from "@/components/Header";
 import { ImageSlider } from "@/components/ImageSlider";
 import { LessonsSlider } from "@/components/LessonsSlider";
-import { FaMicrosoft, FaGoogle, FaDiscord, FaVideo, FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function HomePage() {
   return (
@@ -39,45 +39,12 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 2) YouTube + Birebir Özel Ders bölümü */}
+        {/* 2) Birebir Özel Ders bölümü */}
         <section
           id="dersler"
-          className="mx-auto mt-14 flex max-w-6xl flex-col gap-6 px-4 md:px-8 lg:mt-20 lg:flex-row"
+          className="mx-auto mt-14 max-w-6xl px-4 md:px-8 lg:mt-20"
         >
           <LessonsSlider />
-
-          {/* YouTube Kanalı */}
-          <article className="w-full rounded-2xl border border-rose-100 bg-white p-5 shadow-sm lg:w-1/2">
-            <h2 className="text-lg font-semibold text-rose-950 md:text-xl">
-              YouTube Kanalım
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed text-rose-900/80 md:text-base">
-              Ücretsiz{" "}
-              <strong className="font-semibold">
-                matematik konu anlatımları ve soru çözümü videoları
-              </strong>{" "}
-              ile öğrencilerim ders dışında da tekrar yapabiliyor. Videolarda
-              temel kavramlara, yeni nesil soru tiplerine ve sınav stratejilerine
-              odaklanıyorum.
-            </p>
-            <div className="mt-6 flex justify-center">
-              <a
-                href="https://www.youtube.com/"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="YouTube kanalını aç"
-                className="flex h-9 px-16 items-center justify-center rounded-lg bg-red-600 text-white shadow-md transition hover:bg-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-6 w-6"
-                  aria-hidden="true"
-                >
-                  <path d="M9 8l7 4-7 4V8z" fill="currentColor" />
-                </svg>
-              </a>
-            </div>
-          </article>
         </section>
 
         {/* Sabit WhatsApp butonu */}

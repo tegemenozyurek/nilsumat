@@ -62,7 +62,7 @@ export function LessonsSlider() {
   };
 
   return (
-    <article className="flex h-[320px] min-h-[320px] max-h-[320px] w-full flex-col overflow-hidden rounded-2xl border border-rose-100 bg-gradient-to-br from-rose-50/80 via-white to-rose-50/70 p-5 shadow-sm lg:w-1/2">
+    <article className="flex h-[320px] min-h-[320px] max-h-[320px] w-full flex-col overflow-hidden rounded-2xl border border-rose-100 bg-gradient-to-br from-rose-50/80 via-white to-rose-50/70 p-5 shadow-sm">
       {/* Üst satır: başlık + sayaç */}
       <div className="flex items-center justify-between gap-3">
         <h2 className="text-xl font-semibold text-rose-950 md:text-2xl">
