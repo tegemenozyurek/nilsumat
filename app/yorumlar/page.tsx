@@ -51,42 +51,40 @@ export default function YorumlarPage() {
           </p>
         </section>
 
-        {/* Yorumlar grid */}
+        {/* Yorumlar (sol) + form (sağ) */}
         <section className="mx-auto mt-8 max-w-6xl px-4 md:mt-10 md:px-8">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
-            {dummyYorumlar.map((yorum) => (
-              <article
-                key={yorum.id}
-                className="rounded-2xl border border-rose-100 bg-white/95 p-5 shadow-sm"
-              >
-                <div className="mb-3 flex items-start justify-between gap-3">
-                  <div className="flex-1">
-                    <h3 className="text-sm font-semibold text-rose-950 md:text-base">
-                      {yorum.veliAdi}
-                    </h3>
-                    {(yorum.ogrenciAdi || yorum.sinif) && (
-                      <p className="mt-0.5 text-xs text-rose-600 md:text-sm">
-                        {[yorum.ogrenciAdi, yorum.sinif]
-                          .filter(Boolean)
-                          .join(" • ")}
-                      </p>
-                    )}
+          <div className="grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-10">
+            <div className="flex flex-col gap-6">
+              {dummyYorumlar.map((yorum) => (
+                <article
+                  key={yorum.id}
+                  className="rounded-2xl border border-rose-100 bg-white/95 p-5 shadow-sm"
+                >
+                  <div className="mb-3 flex items-start justify-between gap-3">
+                    <div className="flex-1">
+                      <h3 className="text-sm font-semibold text-rose-950 md:text-base">
+                        {yorum.veliAdi}
+                      </h3>
+                      {(yorum.ogrenciAdi || yorum.sinif) && (
+                        <p className="mt-0.5 text-xs text-rose-600 md:text-sm">
+                          {[yorum.ogrenciAdi, yorum.sinif]
+                            .filter(Boolean)
+                            .join(" • ")}
+                        </p>
+                      )}
+                    </div>
+                    <span className="text-[10px] text-rose-400 md:text-xs">
+                      {yorum.tarih}
+                    </span>
                   </div>
-                  <span className="text-[10px] text-rose-400 md:text-xs">
-                    {yorum.tarih}
-                  </span>
-                </div>
-                <p className="text-xs leading-relaxed text-rose-900/80 md:text-sm">
-                  "{yorum.yorum}"
-                </p>
-              </article>
-            ))}
-          </div>
-        </section>
+                  <p className="text-xs leading-relaxed text-rose-900/80 md:text-sm">
+                    "{yorum.yorum}"
+                  </p>
+                </article>
+              ))}
+            </div>
 
-        {/* Yorum formu */}
-        <section className="mx-auto mt-12 max-w-2xl px-4 md:mt-16 md:px-8">
-          <article className="rounded-2xl border border-rose-100 bg-white/95 p-5 shadow-sm md:p-6">
+            <article className="rounded-2xl border border-rose-100 bg-white/95 p-5 shadow-sm md:p-6 lg:sticky lg:top-24">
             <h2 className="text-lg font-semibold text-rose-950 md:text-xl">
               Yorum Bırakın
             </h2>
@@ -175,7 +173,8 @@ export default function YorumlarPage() {
                 yayınlanacaktır.
               </div>
             )}
-          </article>
+            </article>
+          </div>
         </section>
       </main>
 
