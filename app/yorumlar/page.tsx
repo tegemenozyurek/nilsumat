@@ -6,75 +6,30 @@ import { Header } from "@/components/Header";
 const dummyYorumlar = [
   {
     id: 1,
-    veliAdi: "Ayşe Kaya",
-    ogrenciAdi: "Elif Kaya",
-    sinif: "8. Sınıf / LGS",
+    veliAdi: "Dila S.",
+    ogrenciAdi: "",
+    sinif: "",
     yorum:
-      "Nilsu öğretmenimiz sayesinde kızımın matematik notları çok yükseldi. Sabırlı ve anlayışlı yaklaşımı, konuları küçük adımlarla anlatması gerçekten çok etkili oldu. Özellikle yeni nesil sorularda artık çok daha başarılı.",
-    tarih: "15 Ocak 2025",
+      "Konuları sade anlatması ve sabırlı olması sayesinde matematik artık çok daha anlaşılır. Teşekkür ederim.",
+    tarih: "12 Nisan 2026",
   },
   {
     id: 2,
-    veliAdi: "Mehmet Demir",
-    ogrenciAdi: "Can Demir",
-    sinif: "12. Sınıf / TYT",
+    veliAdi: "Derin A.",
+    ogrenciAdi: "",
+    sinif: "",
     yorum:
-      "Oğlum TYT matematikte çok zorlanıyordu. Nilsu öğretmenimizle çalışmaya başladıktan sonra hem konuları daha iyi anladı hem de sınav kaygısı azaldı. Online derslerde dijital tahta kullanımı çok pratik oluyor.",
-    tarih: "10 Ocak 2025",
+      "Birebir derslerde kendi hızımda ilerleyebilmek çok iyi geldi. Soru çözümlerinde gösterdiği yöntemler işime yarıyor.",
+    tarih: "5 Nisan 2026",
   },
   {
     id: 3,
-    veliAdi: "Zeynep Yılmaz",
-    ogrenciAdi: "Beren Yılmaz",
-    sinif: "6. Sınıf",
+    veliAdi: "Ecem K.",
+    ogrenciAdi: "",
+    sinif: "",
     yorum:
-      "Kızım matematikten nefret ediyordu, şimdi derslerini severek çalışıyor. Nilsu öğretmenimizin öğrenciye özel yaklaşımı ve bol örnek çözümü sayesinde matematik artık korkulu rüya değil. Çok teşekkürler!",
-    tarih: "8 Ocak 2025",
-  },
-  {
-    id: 4,
-    veliAdi: "Ali Özkan",
-    ogrenciAdi: "Emre Özkan",
-    sinif: "11. Sınıf / AYT",
-    yorum:
-      "AYT matematik konularında çok zorlanıyorduk. Nilsu öğretmenimiz konuları çok net anlatıyor ve öğrencinin seviyesine göre ilerliyor. Ders sonrası özet ve ödevlendirme sistemi çok faydalı. Kesinlikle tavsiye ederim.",
-    tarih: "5 Ocak 2025",
-  },
-  {
-    id: 5,
-    veliAdi: "Fatma Şahin",
-    ogrenciAdi: "Mert Şahin",
-    sinif: "7. Sınıf",
-    yorum:
-      "Oğlumun matematik temeli çok zayıftı. Nilsu öğretmenimiz temelden başlayarak konuları adım adım ilerletti. Şimdi çok daha özgüvenli ve matematik dersinde başarılı. Öğretmenimize çok teşekkür ediyoruz.",
-    tarih: "2 Ocak 2025",
-  },
-  {
-    id: 6,
-    veliAdi: "Hasan Çelik",
-    ogrenciAdi: "Ece Çelik",
-    sinif: "9. Sınıf",
-    yorum:
-      "Liseye geçişte matematik konuları çok ağır gelmişti. Nilsu öğretmenimizle çalışmaya başladıktan sonra hem konuları anladı hem de sınavlarda başarılı olmaya başladı. Planlı ders akışı ve düzenli takip çok etkili.",
-    tarih: "28 Aralık 2024",
-  },
-  {
-    id: 7,
-    veliAdi: "Selin Arslan",
-    ogrenciAdi: "Arda Arslan",
-    sinif: "10. Sınıf",
-    yorum:
-      "Matematikte çok geride kalmıştık. Nilsu öğretmenimiz öğrencinin seviyesini çok iyi tespit ediyor ve ona göre ders planı yapıyor. Bol örnek ve görsel anlatım sayesinde oğlum artık matematikten korkmuyor.",
-    tarih: "25 Aralık 2024",
-  },
-  {
-    id: 8,
-    veliAdi: "Burak Kılıç",
-    ogrenciAdi: "Zeynep Kılıç",
-    sinif: "8. Sınıf / LGS",
-    yorum:
-      "LGS hazırlık sürecinde Nilsu öğretmenimizle çalışmak çok faydalı oldu. Yeni nesil sorulara odaklanması ve sınav stratejileri öğretmesi sayesinde kızımın netleri arttı. Düzenli tekrar ve mini denemeler sistemi çok etkili.",
-    tarih: "20 Aralık 2024",
+      "Ders planı düzenli ve net; eksik olduğum yerleri hızlıca fark edip oradan devam ediyoruz. Memnunum.",
+    tarih: "28 Mart 2026",
   },
 ];
 
@@ -109,9 +64,13 @@ export default function YorumlarPage() {
                     <h3 className="text-sm font-semibold text-rose-950 md:text-base">
                       {yorum.veliAdi}
                     </h3>
-                    <p className="mt-0.5 text-xs text-rose-600 md:text-sm">
-                      {yorum.ogrenciAdi} • {yorum.sinif}
-                    </p>
+                    {(yorum.ogrenciAdi || yorum.sinif) && (
+                      <p className="mt-0.5 text-xs text-rose-600 md:text-sm">
+                        {[yorum.ogrenciAdi, yorum.sinif]
+                          .filter(Boolean)
+                          .join(" • ")}
+                      </p>
+                    )}
                   </div>
                   <span className="text-[10px] text-rose-400 md:text-xs">
                     {yorum.tarih}
