@@ -39,20 +39,29 @@ function createParticle(x: number, y: number) {
   const hue = rand(330, 15) % 360; // rose/pink range
   el.style.color = `hsl(${hue} 75% 55%)`;
 
-  const dx = rand(-80, 80);
-  const dy = rand(-140, -70);
-  const rot = rand(-220, 220);
-  const duration = rand(1000, 1400);
+  // 360° yayılım
+  const angle = rand(0, Math.PI * 2);
+  const distance = rand(60, 140);
+  const dx = Math.cos(angle) * distance;
+  const dy = Math.sin(angle) * distance;
+  const rot = rand(-260, 260);
+  const duration = rand(1700, 2300);
 
   const anim = el.animate(
     [
-      { transform: "translate(-50%, -50%) translate(0px, 0px) rotate(0deg)", opacity: 1 },
+      { transform: "translate(-50%, -50%) translate(0px, 0px) rotate(0deg)", opacity: 1, offset: 0 },
+      {
+        transform: `translate(-50%, -50%) translate(${dx * 0.7}px, ${dy * 0.7}px) rotate(${rot * 0.7}deg)`,
+        opacity: 0.85,
+        offset: 0.55,
+      },
       {
         transform: `translate(-50%, -50%) translate(${dx}px, ${dy}px) rotate(${rot}deg)`,
         opacity: 0,
+        offset: 1,
       },
     ],
-    { duration, easing: "cubic-bezier(0.16, 1, 0.3, 1)", fill: "forwards" },
+    { duration, easing: "cubic-bezier(0.12, 0.9, 0.25, 1)", fill: "forwards" },
   );
 
   anim.onfinish = () => el.remove();
