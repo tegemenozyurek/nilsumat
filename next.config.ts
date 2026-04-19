@@ -1,9 +1,10 @@
 import type { NextConfig } from "next";
 import path from "path";
 
-/** GitHub Pages lives under /nilsumat; local dev is easier at /. */
+/** GitHub Pages: proje kökü `/<repo>`; Actions’ta GITHUB_REPOSITORY otomatik gelir. */
 const isProd = process.env.NODE_ENV === "production";
-const ghPagesBase = "/nilsumat";
+const repoSlug = process.env.GITHUB_REPOSITORY?.split("/")[1];
+const ghPagesBase = repoSlug ? `/${repoSlug}` : "/nilsumat";
 
 const nextConfig: NextConfig = {
   /**

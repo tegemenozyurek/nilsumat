@@ -3,6 +3,8 @@ import { Dancing_Script, Inter, Poppins, WindSong } from "next/font/google";
 import "./globals.css";
 import { ClickConfetti } from "@/components/ClickConfetti";
 
+const siteUrl = new URL("https://tegemenozyurek.github.io/nilsumat/");
+
 // Ana gövde fontu: Inter
 const inter = Inter({
   subsets: ["latin"],
@@ -34,7 +36,7 @@ export const metadata: Metadata = {
   title: "Nilsu Mat",
   description:
     "Ortaokul, LGS, TYT ve AYT seviyelerinde birebir özel matematik dersleri. Nilsu Uğurlu ile güvenilir, planlı ve öğrencinin seviyesine uygun matematik eğitimi.",
-  metadataBase: new URL("https://tegemenozyurek.github.io/nilsumat"),
+  metadataBase: siteUrl,
   alternates: {
     canonical: "/",
   },
@@ -42,7 +44,7 @@ export const metadata: Metadata = {
     title: "Nilsu Mat",
     description:
       "Ortaokul, LGS, TYT ve AYT öğrencileri için online ve yüz yüze birebir matematik dersleri.",
-    url: "https://tegemenozyurek.github.io",
+    url: siteUrl,
     siteName: "Nilsu Mat",
     locale: "tr_TR",
     type: "website",
