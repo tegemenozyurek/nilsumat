@@ -1,5 +1,6 @@
 "use client";
 
+import type { ChangeEventHandler, FormEvent, InvalidEvent } from "react";
 import { useState } from "react";
 import { Header } from "@/components/Header";
 
@@ -33,8 +34,44 @@ const dummyYorumlar = [
   },
 ];
 
+const SINIF_LABELS: Record<string, string> = {
+  ortaokul: "Ortaokul",
+  lgs: "LGS Hazırlık",
+  tyt: "TYT",
+  ayt: "AYT",
+};
+
 export default function YorumlarPage() {
-  const [showNotification, setShowNotification] = useState(false);
+  const [mailRedirectNotice, setMailRedirectNotice] = useState(false);
+
+  type Validatable =
+    | HTMLInputElement
+    | HTMLSelectElement
+    | HTMLTextAreaElement;
+
+  const clearNativeValidity = (e: FormEvent<Validatable>) => {
+    e.currentTarget.setCustomValidity("");
+  };
+
+  const clearSelectValidity: ChangeEventHandler<HTMLSelectElement> = (e) => {
+    e.currentTarget.setCustomValidity("");
+  };
+
+  const setTurkishRequiredMessage = (
+    e: InvalidEvent<Validatable>,
+    emptyMessage: string,
+  ) => {
+    const el = e.currentTarget;
+    if (el.validity.valueMissing) {
+      el.setCustomValidity(emptyMessage);
+      return;
+    }
+    if (el.validity.typeMismatch) {
+      el.setCustomValidity("Lütfen geçerli bir değer girin.");
+      return;
+    }
+    el.setCustomValidity("");
+  };
 
   return (
     <>
@@ -94,13 +131,53 @@ export default function YorumlarPage() {
               </p>
 
               <form
+                lang="tr"
                 className="mt-4 space-y-3 text-xs md:text-sm"
                 onSubmit={(e) => {
                   e.preventDefault();
-                  setShowNotification(true);
+                  const fd = new FormData(e.currentTarget);
+                  const veli = String(fd.get("veli") ?? "").trim();
+                  const ogrenci = String(fd.get("ogrenci") ?? "").trim();
+                  const sinifKey = String(fd.get("sinif") ?? "").trim();
+                  const yorum = String(fd.get("yorum") ?? "").trim();
+
+                  const subject = "Veli / Öğrenci Yorumu";
+                  const now = new Date();
+                  const submittedAt = now.toLocaleString("tr-TR", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  });
+                  const sinifLabel =
+                    SINIF_LABELS[sinifKey] ?? (sinifKey || "-");
+                  const body = [
+                    "Merhaba Nilsu Öğretmenim,",
+                    "",
+                    "Yorum Bırakın Formu",
+                    "────────────────────────",
+                    `Tarih/Saat : ${submittedAt}`,
+                    "",
+                    "Bilgiler",
+                    `- Veli adı soyadı : ${veli}`,
+                    `- Öğrenci adı      : ${ogrenci}`,
+                    `- Sınıf / seviye   : ${sinifLabel}`,
+                    "",
+                    "Yorum",
+                    yorum,
+                    "",
+                    "Teşekkür ederim.",
+                  ].join("\n");
+
+                  const mailto = `mailto:nilsuugurluu@gmail.com?subject=${encodeURIComponent(
+                    subject,
+                  )}&body=${encodeURIComponent(body)}`;
+
+                  setMailRedirectNotice(true);
                   setTimeout(() => {
-                    setShowNotification(false);
-                  }, 3000);
+                    window.location.href = mailto;
+                  }, 120);
                 }}
               >
                 <div>
@@ -109,7 +186,15 @@ export default function YorumlarPage() {
                   </label>
                   <input
                     type="text"
+                    name="veli"
                     required
+                    onInvalid={(e) =>
+                      setTurkishRequiredMessage(
+                        e,
+                        "Lütfen veli adı ve soyadını yazın.",
+                      )
+                    }
+                    onInput={clearNativeValidity}
                     className="mt-1 w-full rounded-lg border border-rose-100 bg-white px-3 py-2 text-sm text-rose-950 shadow-sm outline-none ring-0 focus:border-pink-300 focus:ring-2 focus:ring-pink-100"
                   />
                 </div>
@@ -121,7 +206,15 @@ export default function YorumlarPage() {
                   </label>
                   <input
                     type="text"
+                    name="ogrenci"
                     required
+                      onInvalid={(e) =>
+                        setTurkishRequiredMessage(
+                          e,
+                          "Lütfen öğrenci adını yazın.",
+                        )
+                      }
+                      onInput={clearNativeValidity}
                     className="mt-1 w-full rounded-lg border border-rose-100 bg-white px-3 py-2 text-sm text-rose-950 shadow-sm outline-none ring-0 focus:border-pink-300 focus:ring-2 focus:ring-pink-100"
                   />
                 </div>
@@ -131,9 +224,17 @@ export default function YorumlarPage() {
                     Sınıf / Seviye
                   </label>
                   <select
+                    name="sinif"
                     className="mt-1 w-full rounded-lg border border-rose-100 bg-white px-3 py-2 text-sm text-rose-950 shadow-sm outline-none ring-0 focus:border-pink-300 focus:ring-2 focus:ring-pink-100"
                     defaultValue=""
                     required
+                      onInvalid={(e) =>
+                        setTurkishRequiredMessage(
+                          e,
+                          "Lütfen sınıf veya seviye seçin.",
+                        )
+                      }
+                      onChange={clearSelectValidity}
                   >
                     <option value="" disabled>
                       Seçiniz
@@ -152,7 +253,12 @@ export default function YorumlarPage() {
                 </label>
                 <textarea
                   rows={4}
+                  name="yorum"
                   required
+                    onInvalid={(e) =>
+                      setTurkishRequiredMessage(e, "Lütfen yorumunuzu yazın.")
+                    }
+                    onInput={clearNativeValidity}
                   className="mt-1 w-full resize-none rounded-lg border border-rose-100 bg-white px-3 py-2 text-sm text-rose-950 shadow-sm outline-none ring-0 focus:border-pink-300 focus:ring-2 focus:ring-pink-100"
                   placeholder="Derslerimiz hakkındaki görüşlerinizi paylaşın..."
                 />
@@ -162,15 +268,17 @@ export default function YorumlarPage() {
                 type="submit"
                 className="mt-1 inline-flex w-full items-center justify-center rounded-full bg-pink-500 px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-pink-600 md:text-sm"
               >
-                Yorumu Gönder
+                Gönder
               </button>
               </form>
 
-              {/* Bildirim */}
-              {showNotification && (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-xs text-emerald-800 shadow-sm md:text-sm">
-                  ✓ Yorumunuz gönderildi! Onaylandıktan sonra bu sayfada
-                  yayınlanacaktır.
+              {mailRedirectNotice && (
+                <div
+                  role="status"
+                  className="mt-3 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-xs text-rose-800 shadow-sm md:text-sm"
+                >
+                  Mail uygulamanıza yönlendirildiniz. Eğer otomatik açılmadıysa
+                  lütfen tarayıcı izinlerini kontrol edin.
                 </div>
               )}
             </article>
